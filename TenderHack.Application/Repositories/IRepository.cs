@@ -1,6 +1,6 @@
-﻿using MultilayerTemplate.BLL.Specifications;
+﻿using TenderHack.BLL.Specifications;
 
-namespace MultilayerTemplate.BLL.Repositories;
+namespace TenderHack.BLL.Repositories;
 
 public interface IRepository<TEntity>
     where TEntity : class

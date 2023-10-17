@@ -1,6 +1,6 @@
-﻿using MultilayerTemplate.BLL.Services.Interfaces.Queries;
+﻿using TenderHack.BLL.Services.Interfaces.Queries;
 
-namespace MultilayerTemplate.BLL.Services.Implementations.Queries;
+namespace TenderHack.BLL.Services.Implementations.Queries;
 
 public class GetService : IGetService
 {

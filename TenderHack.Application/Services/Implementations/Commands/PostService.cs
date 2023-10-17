@@ -1,6 +1,6 @@
-﻿using MultilayerTemplate.BLL.Services.Interfaces.Commands;
+﻿using TenderHack.BLL.Services.Interfaces.Commands;
 
-namespace MultilayerTemplate.BLL.Services.Implementations.Commands;
+namespace TenderHack.BLL.Services.Implementations.Commands;
 
 public class PostService : IPostService
 {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace MultilayerTemplate.BLL.Specifications;
+namespace TenderHack.BLL.Specifications;
 
 // https://petemontgomery.wordpress.com/2011/02/10/a-universal-predicatebuilder/
 public static class ExpressionBuilder

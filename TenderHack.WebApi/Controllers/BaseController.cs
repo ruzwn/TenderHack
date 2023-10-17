@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MultilayerTemplate.Controllers;
+namespace TenderHack.Controllers;
 
 /// <summary>
 /// Базовый контроллер (дефолтные аттрибуты и прочее

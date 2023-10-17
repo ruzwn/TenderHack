@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MultilayerTemplate.BLL.Services.Interfaces.Commands;
-using MultilayerTemplate.BLL.Services.Interfaces.Queries;
+using TenderHack.BLL.Services.Interfaces.Commands;
+using TenderHack.BLL.Services.Interfaces.Queries;
 
-namespace MultilayerTemplate.Controllers;
+namespace TenderHack.Controllers;
 
 /// <summary>
 /// Пример контроллера

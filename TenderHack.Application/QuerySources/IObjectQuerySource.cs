@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.BLL.QuerySources;
+﻿namespace TenderHack.BLL.QuerySources;
 
 public interface IObjectQuerySource
 {

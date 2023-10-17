@@ -1,6 +1,6 @@
-﻿using MultilayerTemplate.BLL.QuerySources;
+﻿using TenderHack.BLL.QuerySources;
 
-namespace MultilayerTemplate.Infrastructure.QuerySources;
+namespace TenderHack.Infrastructure.QuerySources;
 
 public class ObjectQuerySource : IObjectQuerySource
 {

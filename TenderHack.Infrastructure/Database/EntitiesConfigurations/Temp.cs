@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.Infrastructure.Database.EntitiesConfigurations;
+﻿namespace TenderHack.Infrastructure.Database.EntitiesConfigurations;
 
 public class Temp
 {

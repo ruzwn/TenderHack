@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace MultilayerTemplate.BLL.Specifications;
+namespace TenderHack.BLL.Specifications;
 
 public class Specification<TEntity>
 {

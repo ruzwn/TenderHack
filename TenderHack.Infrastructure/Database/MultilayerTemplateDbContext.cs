@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace MultilayerTemplate.Infrastructure.Database;
+namespace TenderHack.Infrastructure.Database;
 
 public class MultilayerTemplateDbContext : DbContext
 {

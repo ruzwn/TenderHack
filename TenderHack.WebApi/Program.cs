@@ -1,10 +1,10 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
-using MultilayerTemplate.BLL.Services;
-using MultilayerTemplate.Infrastructure.QuerySources;
-using MultilayerTemplate.Infrastructure.Repositories;
+using TenderHack.BLL.Services;
+using TenderHack.Infrastructure.QuerySources;
+using TenderHack.Infrastructure.Repositories;
 
-namespace MultilayerTemplate;
+namespace TenderHack;
 
 internal static class Program
 {
@@ -22,8 +22,8 @@ internal static class Program
                     new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = $"{nameof(MultilayerTemplate)} API",
-                        Description = $"{nameof(MultilayerTemplate)} API description"
+                        Title = $"{nameof(TenderHack)} API",
+                        Description = $"{nameof(TenderHack)} API description"
                     });
 
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -42,7 +42,7 @@ internal static class Program
             app.UseSwaggerUI(
                 options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{nameof(MultilayerTemplate)} API v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{nameof(TenderHack)} API v1");
                     options.RoutePrefix = string.Empty;
                 });
         }

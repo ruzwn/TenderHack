@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.BLL.Specifications;
+﻿namespace TenderHack.BLL.Specifications;
 
 public class ObjectSpecification
 {

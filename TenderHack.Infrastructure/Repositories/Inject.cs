@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MultilayerTemplate.BLL.Repositories;
+using TenderHack.BLL.Repositories;
 
-namespace MultilayerTemplate.Infrastructure.Repositories;
+namespace TenderHack.Infrastructure.Repositories;
 
 public static class Inject
 {

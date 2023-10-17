@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MultilayerTemplate.BLL.QuerySources;
+using TenderHack.BLL.QuerySources;
 
-namespace MultilayerTemplate.Infrastructure.QuerySources;
+namespace TenderHack.Infrastructure.QuerySources;
 
 public static class Inject
 {

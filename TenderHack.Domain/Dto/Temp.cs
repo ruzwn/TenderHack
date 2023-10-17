@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.Domain.Dto;
+﻿namespace TenderHack.Domain.Dto;
 
 public class Temp
 {

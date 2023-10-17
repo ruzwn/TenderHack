@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.Domain.Models;
+﻿namespace TenderHack.Domain.Models;
 
 public class Temp
 {

@@ -1,7 +1,7 @@
-﻿using MultilayerTemplate.BLL.Repositories;
-using MultilayerTemplate.BLL.Specifications;
+﻿using TenderHack.BLL.Repositories;
+using TenderHack.BLL.Specifications;
 
-namespace MultilayerTemplate.Infrastructure.Repositories;
+namespace TenderHack.Infrastructure.Repositories;
 
 public class ObjectRepository : IRepository<object>
 {

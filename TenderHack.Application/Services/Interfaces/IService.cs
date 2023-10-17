@@ -1,4 +1,4 @@
-﻿namespace MultilayerTemplate.BLL.Services.Interfaces;
+﻿namespace TenderHack.BLL.Services.Interfaces;
 
 public interface IService<in TRequest, TResponse>
 {
