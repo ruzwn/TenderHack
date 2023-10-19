@@ -2,5 +2,5 @@
 
 public interface IService<in TRequest, TResponse>
 {
-    Task<TResponse> HandleAsync(TRequest request, CancellationToken cancellationToken);
+    Task<TResponse> HandleAsync(TRequest request, CancellationToken cancellationToken = default);
 }

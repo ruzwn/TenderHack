@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultilayerTemplate.BLL.Services.Interfaces.Commands;
+using MultilayerTemplate.BLL.Services.Interfaces.Queries;
 
 namespace MultilayerTemplate.Controllers;
 
@@ -14,6 +16,7 @@ public class BaseController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAsync(int id)
     {
+        await HttpContext.RequestServices.GetRequiredService<IGetService>().HandleAsync(id);
         return Ok(id);
     }
 
@@ -25,6 +28,7 @@ public class BaseController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostAsync(int id)
     {
+        await HttpContext.RequestServices.GetRequiredService<IPostService>().HandleAsync(id);
         return Ok(id);
     }
 }
