@@ -1,20 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TenderHack.Domain.Models;
 
 namespace TenderHack.Infrastructure.Database;
 
 public class MultilayerTemplateDbContext : DbContext
 {
-    protected readonly IConfiguration Configuration;
+    private readonly IConfiguration _configuration;
+    
+    public DbSet<Log> Logs { get; set; }
 
     public MultilayerTemplateDbContext(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
+        
+        Database.Migrate();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // options.UseNpgsql(Configuration.GetConnectionString("MultilayerTemplateDatabase"));
+        optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"));
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
