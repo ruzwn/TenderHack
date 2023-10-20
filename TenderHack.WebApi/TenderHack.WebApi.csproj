@@ -5,7 +5,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>MultilayerTemplate</RootNamespace>
+    <RootNamespace>TenderHack</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
