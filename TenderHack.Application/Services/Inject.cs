@@ -12,5 +12,7 @@ public static class Inject
     {
         services.AddScoped<IGetService, GetService>();
         services.AddScoped<IPostService, PostService>();
+
+        services.AddTransient<IImportService, ImportService>();
     }
 }

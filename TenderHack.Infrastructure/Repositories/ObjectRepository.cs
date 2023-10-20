@@ -10,6 +10,11 @@ public class ObjectRepository : IRepository<object>
         throw new NotImplementedException();
     }
 
+    public Task AddRangeAsync(IEnumerable<object> entities, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task UpdateAsync(object entity, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
