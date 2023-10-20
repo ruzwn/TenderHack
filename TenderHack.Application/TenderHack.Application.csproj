@@ -4,10 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <RootNamespace>MultilayerTemplate.BLL</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MultilayerTemplate.Domain\MultilayerTemplate.Domain.csproj" />
+    <ProjectReference Include="..\TenderHack.Domain\TenderHack.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

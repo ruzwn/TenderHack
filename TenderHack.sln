@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultilayerTemplate", "MultilayerTemplate\MultilayerTemplate.csproj", "{99662069-3E08-453F-8DB9-EC0634D1EB17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderHack.WebApi", "TenderHack.WebApi\TenderHack.WebApi.csproj", "{99662069-3E08-453F-8DB9-EC0634D1EB17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultilayerTemplate.Domain", "MultilayerTemplate.Domain\MultilayerTemplate.Domain.csproj", "{4BAB8631-05D9-42D4-AFD9-6430035947D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderHack.Domain", "TenderHack.Domain\TenderHack.Domain.csproj", "{4BAB8631-05D9-42D4-AFD9-6430035947D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultilayerTemplate.BLL", "MultilayerTemplate.BLL\MultilayerTemplate.BLL.csproj", "{E4DC0D07-40C0-4298-BC3A-DE02E76BC27F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderHack.Application", "TenderHack.Application\TenderHack.Application.csproj", "{E4DC0D07-40C0-4298-BC3A-DE02E76BC27F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultilayerTemplate.Infrastructure", "MultilayerTemplate.Infrastructure\MultilayerTemplate.Infrastructure.csproj", "{BE2C4347-EB25-46F7-8819-0026849A5AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenderHack.Infrastructure", "TenderHack.Infrastructure\TenderHack.Infrastructure.csproj", "{BE2C4347-EB25-46F7-8819-0026849A5AED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,11 +5,12 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>MultilayerTemplate</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MultilayerTemplate.BLL\MultilayerTemplate.BLL.csproj" />
-    <ProjectReference Include="..\MultilayerTemplate.Infrastructure\MultilayerTemplate.Infrastructure.csproj" />
+    <ProjectReference Include="..\TenderHack.Application\TenderHack.Application.csproj" />
+    <ProjectReference Include="..\TenderHack.Infrastructure\TenderHack.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
