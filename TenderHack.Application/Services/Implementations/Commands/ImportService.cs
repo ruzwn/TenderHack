@@ -49,11 +49,6 @@ public class ImportService : IImportService
             .ToList();
     }
 
-    private async Task Save(List<Log> data)
-    {
-        
-    }
-
     private List<Log> ProcessData(List<RawRowModel> data)
     {
         return data
