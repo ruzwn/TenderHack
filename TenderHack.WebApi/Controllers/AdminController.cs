@@ -12,7 +12,7 @@ public class AdminController : BaseController
 {
     [HttpGet]
     public async Task<List<ErrorListResponse>> List(
-        ListRequest request,
+        [FromQuery]ListRequest request,
         CancellationToken cancellationToken)
     {
         try

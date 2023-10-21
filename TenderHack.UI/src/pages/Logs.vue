@@ -5,7 +5,7 @@ import TableWithPagging from '@/components/TableWithPagging.vue';
 
 <template>
   <div class="page">
-    <TableWithPagging :columns="['Идентификатор', 'Идентификатор лога', 'Лог', 'Время лога']" api="Test/GetLogs"/>
+    <TableWithPagging :columns="['Идентификатор', 'Идентификатор лога', 'Лог', 'Время лога']" api="Admin/List"/>
   </div>
 </template>
 
