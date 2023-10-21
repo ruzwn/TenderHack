@@ -11,9 +11,19 @@ const router = createRouter({
       component: () => import("@/pages/Home.vue"),
     },
     {
-      path: "/About",
-      name: RouteNamesEnum.about,
-      component: () => import("@/pages/About.vue"),
+      path: "/Dashboard",
+      name: RouteNamesEnum.dashboard,
+      component: () => import("@/pages/Dashboard.vue"),
+    },
+    {
+      path: "/Logs",
+      name: RouteNamesEnum.logs,
+      component: () => import("@/pages/Logs.vue"),
+    },
+    {
+      path: "/Clusters",
+      name: RouteNamesEnum.cluster,
+      component: () => import("@/pages/Clusters.vue")
     }
   ],
 });
