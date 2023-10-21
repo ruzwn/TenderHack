@@ -37,6 +37,11 @@ internal static class Program
         builder.Services.AddServices();
 
         var app = builder.Build();
+        
+        app.UseCors(options => options
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyOrigin());
 
         if (app.Environment.IsDevelopment())
         {
