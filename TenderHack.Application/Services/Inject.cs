@@ -10,6 +10,7 @@ public static class Inject
 {
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddScoped<ISendEmailService, SendEmailService>();
         services.AddScoped<IGetLogsByIdsService, GetLogsByIdsService>();
         services.AddTransient<IImportService, ImportService>();
     }
