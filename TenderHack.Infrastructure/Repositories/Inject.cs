@@ -8,6 +8,7 @@ public static class Inject
 {
     public static void AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IRepository<Error>, LogRepository>();
+        services.AddScoped<IRepository<Error>, ErrorRepository>();
+        services.AddScoped<IRepository<Cluster>, ClusterRepository>();
     }
 }
