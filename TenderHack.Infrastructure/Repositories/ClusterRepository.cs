@@ -45,14 +45,14 @@ namespace TenderHack.Infrastructure.Repositories
 			{
 				entities = entities.Where(filter);
 			}
-			var entitiesList = await entities.ToListAsync(cancellationToken);
-
-			return entitiesList;
+			
+			return await entities.ToListAsync(cancellationToken);
 		}
 
 		public async Task<Cluster> GetOneAsync(Specification<Cluster> filter, CancellationToken cancellationToken)
 		{
 			var entity = await _dbContext.Clusters
+				.Include(x => x.Errors)
 				.FirstOrDefaultAsync(filter, cancellationToken)
 				?? throw new ArgumentNullException("Entity was not found");
 
