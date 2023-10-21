@@ -38,6 +38,12 @@ internal static class Program
 
         var app = builder.Build();
 
+        app.UseCors(options => options.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+        );
+
+            
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
