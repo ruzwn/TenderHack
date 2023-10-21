@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TenderHack.Infrastructure.Database;
 
@@ -10,9 +11,11 @@ using TenderHack.Infrastructure.Database;
 namespace TenderHack.Infrastructure.Migrations
 {
     [DbContext(typeof(TenderHackDbContext))]
-    partial class TenderHackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231021102830_ClustersUsers")]
+    partial class ClustersUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");

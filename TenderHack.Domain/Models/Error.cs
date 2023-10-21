@@ -21,16 +21,16 @@ public class Error : BaseEntity<Guid>
 	{
 	}
 
-    public Error(string metaId, string dateTime, string message)
-    {
-        MetaId = Guid.Parse(metaId.ThrowIfNullOrEmpty());
+	public Error(string metaId, string dateTime, string message)
+	{
+		MetaId = Guid.Parse(metaId.ThrowIfNullOrEmpty());
 
-        if (!DateTime.TryParse(dateTime, out var parsedTime))
-        {
-            throw new ArgumentException(null, nameof(dateTime));
-        }
+		if (!DateTime.TryParse(dateTime, out var parsedTime))
+		{
+			throw new ArgumentException(null, nameof(dateTime));
+		}
 
-        Date = parsedTime;
-        Log = message.ThrowIfNullOrEmpty();
-    }
+		Date = parsedTime;
+		Log = message.ThrowIfNullOrEmpty();
+	}
 }

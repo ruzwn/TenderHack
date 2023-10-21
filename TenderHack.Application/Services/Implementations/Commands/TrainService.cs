@@ -21,32 +21,47 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 			await _errorRepository.AddAsync(error, cancellationToken);
 			var errors = await _errorRepository.GetManyAsync(new Specifications.Specification<Error>(e => e.Cluster == null), cancellationToken);
 			var clusters = await _clusterRepository.GetManyAsync(null, cancellationToken);
-			
+
 			clusters.Add(new Cluster());
 
 			foreach (var e in errors)
-			{
+		{
 				await KMeans(e, clusters);
 			}
 			await _clusterRepository.SaveAsync();
 			return error.Cluster.Id;
-		}
+				}
 
 		private async Task KMeans(Error error, List<Cluster> clusters)
-		{
-			var closestCluster = clusters.MinBy(c => CalculateDistance(c.Centroid, error));
+				{
+					var closestCluster = clusters.MinBy(c => CalculateDistance(c.Centroid, error));
 			closestCluster.Errors.Add(error);
 			error.Cluster = closestCluster;
 
 			var newCentroid = closestCluster.Errors.MinBy(e => CalculateSumDistance(e, closestCluster));
 
 			closestCluster.Centroid = newCentroid;
-			if (closestCluster.Centroid == null)
-			{
+					if (closestCluster.Centroid == null)
+					{
 				await _clusterRepository.AddAsync(closestCluster, CancellationToken.None);
-				clusters.Add(new Cluster());
-				closestCluster.Centroid = error;
+						clusters.Add(new Cluster());
+						closestCluster.Centroid = error;
+					}
+					closestCluster.Errors.Add(error);
+				}
+
+				// Пересчет центроидов
+				changed = false;
+				foreach (var cluster in clusters)
+				{
+					var newCentroid = cluster.Errors.MinBy(e => CalculateSumDistance(e, cluster));
+					if (cluster.Centroid != newCentroid)
+					{
+						changed = true;
+					}
+				}
 			}
+			while (changed);
 		}
 
 		private double CalculateSumDistance(Error e, Cluster cluster)
