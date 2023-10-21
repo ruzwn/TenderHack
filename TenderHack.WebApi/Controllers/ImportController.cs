@@ -47,4 +47,12 @@ public class ImportController : BaseController
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPost]
+    public async Task<ActionResult<string>> ParseClasses(
+        IFormFile file, 
+        CancellationToken cancellationToken)
+    {
+        return Ok();
+    }
 }

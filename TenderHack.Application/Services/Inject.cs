@@ -14,5 +14,10 @@ public static class Inject
         services.AddScoped<IGetLogsByIdsService, GetLogsByIdsService>();
         services.AddTransient<IImportService, ImportService>();
         services.AddTransient<ITrainService, TrainService>();
+
+        services.AddTransient<IGetClusterRequest, GetClusterRequest>();
+        services.AddTransient<IGetStatisticsOfWeekRequest, GetStatisticsOfWeekRequest>();
+        services.AddTransient<IListClusterRequest, ListClusterRequest>();
+        services.AddTransient<IStatisticByDateService, StatisticsByDateService>();
     }
 }
