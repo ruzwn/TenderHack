@@ -101,6 +101,9 @@ namespace TenderHack.Infrastructure.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Log")
                         .HasColumnType("TEXT");
 
