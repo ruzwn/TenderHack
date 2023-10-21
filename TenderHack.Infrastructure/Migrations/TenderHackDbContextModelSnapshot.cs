@@ -89,6 +89,23 @@ namespace TenderHack.Infrastructure.Migrations
                     b.ToTable("Errors");
                 });
 
+            modelBuilder.Entity("TenderHack.Domain.Models.ErrorType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Log")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ErrorTypes");
+                });
+
             modelBuilder.Entity("TenderHack.Domain.Models.User", b =>
                 {
                     b.Property<long>("Id")
