@@ -22,6 +22,7 @@ public class ParseService : IParseService
             .ToList();
 
         var classes = logs
+            .Where(x => x.Contains(':'))
             .Select(x => x.Split(':', 2).First())
             .Distinct()
             .ToList();

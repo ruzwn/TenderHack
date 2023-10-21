@@ -21,5 +21,6 @@ public static class Inject
         services.AddTransient<IStatisticByDateService, StatisticsByDateService>();
         services.AddTransient<IParseService, ParseService>();
         services.AddTransient<IClusterUpdateRequest, ClusterUpdateRequest>();
+        services.AddTransient<IListErrorRequest, ListErrorRequest>();
     }
 }
