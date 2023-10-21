@@ -19,14 +19,14 @@ namespace TenderHack.Infrastructure.Repositories
 
 		public async Task AddAsync(Cluster entity, CancellationToken cancellationToken)
 		{
-			await _dbContext.Cluters.AddAsync(entity, cancellationToken);
+			await _dbContext.Clusters.AddAsync(entity, cancellationToken);
 
 			//await _dbContext.SaveChangesAsync(cancellationToken);
 		}
 
 		public async Task AddRangeAsync(IEnumerable<Cluster> entities, CancellationToken cancellationToken)
 		{
-			await _dbContext.Cluters.AddRangeAsync(entities, cancellationToken);
+			await _dbContext.Clusters.AddRangeAsync(entities, cancellationToken);
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
 		}
@@ -38,7 +38,7 @@ namespace TenderHack.Infrastructure.Repositories
 
 		public async Task<List<Cluster>> GetManyAsync(Specification<Cluster> filter, CancellationToken cancellationToken)
 		{
-			var entities = _dbContext.Cluters
+			var entities = _dbContext.Clusters
 				.Include(c => c.Errors)
 				.AsQueryable();
 			if (filter is not null)
@@ -52,7 +52,7 @@ namespace TenderHack.Infrastructure.Repositories
 
 		public async Task<Cluster> GetOneAsync(Specification<Cluster> filter, CancellationToken cancellationToken)
 		{
-			var entity = await _dbContext.Cluters
+			var entity = await _dbContext.Clusters
 				.FirstOrDefaultAsync(filter, cancellationToken)
 				?? throw new ArgumentNullException("Entity was not found");
 

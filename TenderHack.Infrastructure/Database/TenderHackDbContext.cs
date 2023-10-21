@@ -9,7 +9,7 @@ public sealed class TenderHackDbContext : DbContext
     private readonly IConfiguration _configuration;
     
     public DbSet<Error> Errors { get; set; }
-    public DbSet<Cluster> Cluters { get; set; }
+    public DbSet<Cluster> Clusters { get; set; }
     public DbSet<User> Users { get; set; }
 
     public TenderHackDbContext(IConfiguration configuration)
