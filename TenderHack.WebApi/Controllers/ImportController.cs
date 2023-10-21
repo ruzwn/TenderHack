@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TenderHack.BLL.Services.Interfaces.Commands;
+using TenderHack.BLL.Services.Interfaces.Queries;
 
 namespace TenderHack.Controllers;
 
@@ -8,17 +9,28 @@ namespace TenderHack.Controllers;
 /// </summary>
 public class ImportController : BaseController
 {
-    private readonly IImportService _importService;
-
-    public ImportController(IImportService importService)
+    /// <summary>
+    /// Получение логов по списку идентификаторов
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetLogsByIdsAsync([FromQuery] List<Guid> ids, CancellationToken cancellationToken)
     {
-        _importService = importService;
-    }
+        try
+        {
+            var result = await GetService<IGetLogsByIdsService>().HandleAsync(ids, cancellationToken);
 
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    
     /// <summary>
     /// Загрузка данных из CSV.
     /// </summary>
-    [HttpPost("csv")]
+    [HttpPost]
     public async Task<IActionResult> ImportCsvFile(IFormFile file, CancellationToken cancellationToken)
     {
         try
@@ -26,8 +38,8 @@ public class ImportController : BaseController
             using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream, cancellationToken);
             var fileBytes = memoryStream.ToArray();
-            
-            await _importService.Execute(fileBytes, cancellationToken);
+
+            await GetService<IImportService>().Execute(fileBytes, cancellationToken);
             return Ok();
         }
         catch (Exception ex)

@@ -4,13 +4,13 @@ using TenderHack.Domain.Models;
 
 namespace TenderHack.Infrastructure.Database;
 
-public class MultilayerTemplateDbContext : DbContext
+public sealed class TenderHackDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
     
     public DbSet<Log> Logs { get; set; }
 
-    public MultilayerTemplateDbContext(IConfiguration configuration)
+    public TenderHackDbContext(IConfiguration configuration)
     {
         _configuration = configuration;
         
@@ -26,6 +26,6 @@ public class MultilayerTemplateDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(MultilayerTemplateDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TenderHackDbContext).Assembly);
     }
 }

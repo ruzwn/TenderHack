@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TenderHack.BLL.Repositories;
-using TenderHack.BLL.Services;
 using TenderHack.Domain.Models;
 
 namespace TenderHack.Infrastructure.Repositories;
