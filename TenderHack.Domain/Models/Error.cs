@@ -1,4 +1,6 @@
-﻿using TenderHack.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using TenderHack.Domain.Common;
 
 namespace TenderHack.Domain.Models;
 
@@ -9,6 +11,9 @@ public class Error : BaseEntity<Guid>
 	public DateTime Date { get; set; }
 
 	public string Log { get; set; }
+
+	[NotMapped]
+	public string ProcessedLog { get; set; }
 
 	public long? ClusterIfCentroidId { get; set; }
 	public Cluster? ClusterIfCentroid { get; set; }

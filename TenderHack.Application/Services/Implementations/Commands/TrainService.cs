@@ -1,4 +1,6 @@
-﻿using TenderHack.BLL.Repositories;
+﻿using System.Text.RegularExpressions;
+
+using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Services.Interfaces.Commands;
 using TenderHack.Domain.Models;
@@ -24,30 +26,34 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 			var clusters = await _clusterRepository.GetManyAsync(null, cancellationToken);
 
 			clusters.Add(new Cluster());
+			int count = 0;
 
-			foreach (var e in errors)
+			foreach (var e in errors.Take(5))
 			{
+				count++;
 				await KMeans(e, clusters);
 			}
+
 			await _clusterRepository.SaveAsync();
 			return error.Cluster.Id;
 		}
 
 		private async Task KMeans(Error error, List<Cluster> clusters)
 		{
-			var closestCluster = clusters.MinBy(c => CalculateDistance(c.Centroid, error));
+			var closestCluster = clusters.AsParallel().MinBy(c => CalculateDistance(c.Centroid, error));
 			closestCluster.Errors.Add(error);
 			error.Cluster = closestCluster;
 
-			var newCentroid = closestCluster.Errors.MinBy(e => CalculateSumDistance(e, closestCluster));
+			var newCentroid = closestCluster.Errors.AsParallel().MinBy(e => CalculateSumDistance(e, closestCluster));
 
-			closestCluster.Centroid = newCentroid;
 			if (closestCluster.Centroid == null)
 			{
 				await _clusterRepository.AddAsync(closestCluster, CancellationToken.None);
 				clusters.Add(new Cluster());
 				closestCluster.Centroid = error;
+				closestCluster.CentroidId = error.Id;
 			}
+			closestCluster.Centroid = newCentroid;
 		}
 
 		private double CalculateSumDistance(Error e, Cluster cluster)
@@ -57,13 +63,15 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 
 		private double CalculateDistance(Error error1, Error error2)
 		{
-			var log1 = error1.Log;
-			var log2 = error2.Log;
-
-			if (log1 == string.Empty)
+			if (error1 == null)
 			{
-				return (double)1 / 2 * Math.Sqrt(log2.Length);
+				return Math.Sqrt(error2.ProcessedLog.Length);
 			}
+			SetPreprocessedLog(error1);
+			SetPreprocessedLog(error2);
+			var log1 = error1.ProcessedLog;
+			var log2 = error2.ProcessedLog;
+			
 			int[,] distance = new int[log1.Length + 1, log2.Length + 1];
 
 			for (int i = 0; i <= log1.Length; i++)
@@ -89,11 +97,21 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 			}
 
 			double dist = distance[log1.Length, log2.Length];
-			if (error1.Id == error2.Id)
+			if (error1.MetaId == error2.MetaId)
 			{
-				return dist *= 0.1;
+				return dist *= 0.7;
 			}
 			return dist;
+		}
+
+		private void SetPreprocessedLog(Error e)
+		{
+			if (e.ProcessedLog is not null)
+			{
+				return;
+			}
+
+			e.ProcessedLog = Regex.Replace(e.Log, @"[\d\s()\[\]{};.@""'\n\r\t,]", "").ToLower();
 		}
 	}
 }
