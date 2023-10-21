@@ -5,12 +5,21 @@ import {BASE_URL} from '@/services/api'
 
 interface CardList{
     id: number;
-    displayName: String;
+    displayName?: String;
+}
+
+interface LastErrors{
+    id: string;
+    message: string;
 }
 
 interface ClasterCardData{
     id: number;
     displayName: String;
+    errorByHourStatistics: number[]
+    errorCount: number,
+    lastErrors: LastErrors,
+    previousErrorsByHourStatistics: number[],
 }
 
 const api = 'Cluster/List'
@@ -18,29 +27,39 @@ const api = 'Cluster/List'
 const cardData = ref<CardList[]>();
 const clasterCardData = ref<ClasterCardData>();
 const currentId = ref<Number>();
+const description = ref<String>();
+const answer = ref<String>();
+const resolved = ref<Boolean>();
 
 const loadData = async () => {
     const {data} = await axios.get(BASE_URL + api);
 
-    cardData.value = data.data as CardList[];
+    cardData.value = data as CardList[];
 }
 
 const saveClaster = async () => {
-    const response = await axios.post(BASE_URL + api, {
-        params: {
-
-        }
+    await axios.post(BASE_URL + "Cluster/Update", {
+        Id: currentId.value,
+        Description: description.value,
+        Recommendation: answer.value,
+        Resolved: resolved.value
     });
+
+    const button = document.getElementById('closebuttonmodal');
+    button?.click();
 }
 
 onMounted(async () => {
     loadData()
 })
 
-watch(currentId, async () => {
-    const {data} = await axios.get(BASE_URL + "Test/GetLogsType");
+watch(currentId, async (value) => {
+    if (value && value !== null) {
+        const {data} = await axios.get(BASE_URL + "Cluster/Get/" + value);
 
-    clasterCardData.value = data.data as ClasterCardData;
+        clasterCardData.value = data as ClasterCardData;
+
+    }
 })
 </script>
 
@@ -49,7 +68,7 @@ watch(currentId, async () => {
     <div class="col-sm-3" v-for="(item, index) in cardData" :key="index">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{ item.displayName }}</h5>
+                <h5 class="card-title">{{ item.displayName ?? item.id }}</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="() => currentId = item.id">Подробнее</button>
             </div>
         </div>
@@ -67,12 +86,40 @@ watch(currentId, async () => {
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Количество ошибок в кластере</h5>
-                <h6 class="card-text">Количество ошибок в кластере</h6>
+                <h6 class="card-text">{{ clasterCardData?.errorCount }}</h6>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 20px">
+            <table class="table table-hover">
+                <tbody>
+                    <tr v-for="(item, index) in clasterCardData?.lastErrors" :key="index">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.message }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card" style="margin-top: 20px">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Описание</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Решение</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="answer"></textarea>
+                </div>
+            </div>
+            <div class="mb-3" style="margin-left: 20px">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="resolved">
+                <label class="form-check-label" for="flexCheckDefault" style="margin-left: 20px">
+                    Ошибка устранена
+                </label>
             </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebuttonmodal">Закрыть</button>
         <button type="button" class="btn btn-primary" @click="saveClaster">Сохранить</button>
       </div>
     </div>
@@ -80,4 +127,14 @@ watch(currentId, async () => {
 </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.table {
+  table-layout:fixed;
+}
+
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
