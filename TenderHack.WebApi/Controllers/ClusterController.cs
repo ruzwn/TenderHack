@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TenderHack.BLL.Requests;
+using TenderHack.BLL.Requests.Clusters;
 using TenderHack.BLL.Responses.Clusters;
+using TenderHack.BLL.Services.Interfaces.Commands;
 using TenderHack.BLL.Services.Interfaces.Queries;
 
 namespace TenderHack.Controllers;
@@ -27,6 +29,27 @@ public class ClusterController : BaseController
                 .HandleAsync(clusterId, cancellationToken);
 
             return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Редактировать кластер.
+    /// </summary>
+    [HttpPost]
+    public async Task<ActionResult> Update(
+        ClusterUpdateRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        try
+        {
+            await GetService<IClusterUpdateRequest>().HandleAsync(request, cancellationToken);
+
+            return Ok();
         }
         catch (Exception ex)
         {

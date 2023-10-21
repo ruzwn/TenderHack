@@ -48,11 +48,27 @@ public class ImportController : BaseController
         }
     }
 
+    /// <summary>
+    /// Спарсить классы ошибок.
+    /// </summary>
     [HttpPost]
     public async Task<ActionResult<string>> ParseClasses(
         IFormFile file, 
         CancellationToken cancellationToken)
     {
-        return Ok();
+        try
+        {
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream, cancellationToken);
+            var fileBytes = memoryStream.ToArray();
+
+            var result = await GetService<IParseService>().HandleAsync(fileBytes, cancellationToken);
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }
