@@ -9,9 +9,9 @@ namespace TenderHack.BLL.Services.Implementations.Commands;
 /// <inheritdoc cref="IImportService"/>
 public class ImportService : IImportService
 {
-    private readonly IRepository<Log> _logRepository;
+    private readonly IRepository<Error> _logRepository;
 
-    public ImportService(IRepository<Log> logRepository)
+    public ImportService(IRepository<Error> logRepository)
     {
         _logRepository = logRepository;
     }
@@ -48,14 +48,14 @@ public class ImportService : IImportService
             .ToList();
     }
 
-    private List<Log> ProcessData(List<RawRowModel> data)
+    private List<Error> ProcessData(List<RawRowModel> data)
     {
         return data
             .Select(x =>
             {
                 var dataUtfBytes = Encoding.UTF8.GetBytes(x.LogMessage);
 
-                return new Log(x.LogId, x.Date, Encoding.UTF8.GetString(dataUtfBytes));
+                return new Error(x.LogId, x.Date, Encoding.UTF8.GetString(dataUtfBytes));
             })
             .ToList();
     }

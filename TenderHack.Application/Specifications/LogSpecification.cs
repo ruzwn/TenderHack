@@ -4,8 +4,8 @@ namespace TenderHack.BLL.Specifications;
 
 public static class LogSpecification
 {
-    public static Specification<Log> SearchByIds(IEnumerable<Guid> ids)
+    public static Specification<Error> SearchByIds(IEnumerable<Guid> ids)
     {
-        return new Specification<Log>(log => ids.Contains(log.Id));
+        return new Specification<Error>(log => ids.Contains(log.Id));
     }
 }

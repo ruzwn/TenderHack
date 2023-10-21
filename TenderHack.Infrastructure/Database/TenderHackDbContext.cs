@@ -8,7 +8,7 @@ public sealed class TenderHackDbContext : DbContext
 {
     private readonly IConfiguration _configuration;
     
-    public DbSet<Log> Logs { get; set; }
+    public DbSet<Error> Errors { get; set; }
 
     public TenderHackDbContext(IConfiguration configuration)
     {

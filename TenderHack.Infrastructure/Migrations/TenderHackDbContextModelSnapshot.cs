@@ -17,16 +17,16 @@ namespace TenderHack.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
-            modelBuilder.Entity("TenderHack.Domain.Models.Log", b =>
+            modelBuilder.Entity("TenderHack.Domain.Models.Error", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Data")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<string>("Log")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("MetaId")
@@ -34,7 +34,7 @@ namespace TenderHack.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Logs");
+                    b.ToTable("Errors");
                 });
 #pragma warning restore 612, 618
         }

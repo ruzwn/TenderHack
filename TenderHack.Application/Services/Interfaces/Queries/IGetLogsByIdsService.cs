@@ -2,6 +2,6 @@
 
 namespace TenderHack.BLL.Services.Interfaces.Queries;
 
-public interface IGetLogsByIdsService : IService<IEnumerable<Guid>, IReadOnlyList<Log>>
+public interface IGetLogsByIdsService : IService<IEnumerable<Guid>, IReadOnlyList<Error>>
 {
 }
