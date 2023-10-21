@@ -64,9 +64,14 @@ namespace TenderHack.Infrastructure.Repositories
 			return _dbContext.SaveChangesAsync();
 		}
 
-		public Task UpdateAsync(Cluster entity, CancellationToken cancellationToken)
+		public async Task UpdateAsync(Cluster entity, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			if (_dbContext.Entry(entity).State == EntityState.Detached)
+			{
+				_dbContext.Update(entity);
+			}
+
+			await _dbContext.SaveChangesAsync(cancellationToken);
 		}
 	}
 }

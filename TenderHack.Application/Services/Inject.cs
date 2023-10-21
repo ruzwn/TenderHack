@@ -19,5 +19,7 @@ public static class Inject
         services.AddTransient<IGetStatisticsOfWeekRequest, GetStatisticsOfWeekRequest>();
         services.AddTransient<IListClusterRequest, ListClusterRequest>();
         services.AddTransient<IStatisticByDateService, StatisticsByDateService>();
+        services.AddTransient<IParseService, ParseService>();
+        services.AddTransient<IClusterUpdateRequest, ClusterUpdateRequest>();
     }
 }
