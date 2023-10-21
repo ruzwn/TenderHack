@@ -15,5 +15,6 @@ public interface IRepository<TEntity>
     
     Task<TEntity> GetOneAsync(Specification<TEntity> filter, CancellationToken cancellationToken);
     
-    Task<IReadOnlyList<TEntity>> GetManyAsync(Specification<TEntity> filter, CancellationToken cancellationToken);
+    Task<List<TEntity>> GetManyAsync(Specification<TEntity> filter, CancellationToken cancellationToken);
+	Task SaveAsync();
 }
