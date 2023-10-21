@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
-using System.Linq;
-
 using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;

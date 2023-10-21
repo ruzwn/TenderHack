@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 using TenderHack.Domain.Models;
 
 namespace TenderHack.Infrastructure.Database.Configurations

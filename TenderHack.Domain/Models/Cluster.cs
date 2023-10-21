@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-using TenderHack.Domain.Common;
+﻿using TenderHack.Domain.Common;
 
 namespace TenderHack.Domain.Models
 {
 	public class Cluster : BaseEntity<long>
 	{
-		public List<Error> Errors { get; set; } = new List<Error>();
+		public List<Error> Errors { get; set; } = new();
 
 		public Guid? CentroidId { get; set; }
 		public Error? Centroid { get; set; }
@@ -15,5 +13,7 @@ namespace TenderHack.Domain.Models
 		public string? Description { get; set; }
 		public string? Recommendation { get; set; }
 		public bool Resolved { get; set; }
+		
+		public DateTime ResolvedDate { get; set; }
 	}
 }

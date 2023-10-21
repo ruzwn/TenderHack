@@ -34,9 +34,10 @@ public class ClusterUpdateRequest : IClusterUpdateRequest
             entity.Recommendation = request.Recommendation;
         }
         
-        if (entity.Resolved != request.Resolved)
+        if (!entity.Resolved && request.Resolved)
         {
             entity.Resolved = request.Resolved;
+            entity.ResolvedDate = DateTime.Today;
         }
 
         await _clusterRepository.UpdateAsync(entity, cancellationToken);

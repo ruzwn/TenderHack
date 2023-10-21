@@ -2,21 +2,43 @@ using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Requests.Statistics;
 using TenderHack.BLL.Responses.Statistics;
 using TenderHack.BLL.Services.Interfaces.Queries;
+using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
 
 namespace TenderHack.BLL.Services.Implementations.Queries;
 
 public class GetStatisticsOfWeekRequest : IGetStatisticsOfWeekRequest
 {
-    public readonly IRepository<Error> _errorRepository;
+    private readonly IRepository<Error> _errorRepository;
 
     public GetStatisticsOfWeekRequest(IRepository<Error> errorRepository)
     {
         _errorRepository = errorRepository;
     }
 
-    public Task<StatisticsOfWeekResponse> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
+    public async Task<StatisticsOfWeekResponse> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (request.StartDate.AddDays(7) != request.EndDate)
+        {
+            throw new ArgumentException("Interval between dates is not equal one week");
+        }
+        
+        var errors = await _errorRepository
+            .GetManyAsync(new Specification<Error>(x => x.Date > request.StartDate && x.Date < request.EndDate), 
+                cancellationToken);
+
+        var statisticsOfDayOfWeeks = errors
+            .GroupBy(x => x.Date.DayOfWeek)
+            .Select(x => new StatisticsOfDayOfWeek
+            {
+                DayOfWeek = x.Key,
+                ErrorCount = x.Count()
+            })
+            .ToList();
+
+        return new StatisticsOfWeekResponse
+        {
+            StatisticsOfDayOfWeeks = statisticsOfDayOfWeeks
+        };
     }
 }

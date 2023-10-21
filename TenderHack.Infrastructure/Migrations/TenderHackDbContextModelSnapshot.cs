@@ -53,6 +53,9 @@ namespace TenderHack.Infrastructure.Migrations
                     b.Property<bool>("Resolved")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("ResolvedDate")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Clusters");
