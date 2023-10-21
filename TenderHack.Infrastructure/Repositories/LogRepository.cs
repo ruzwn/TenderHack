@@ -8,9 +8,9 @@ namespace TenderHack.Infrastructure.Repositories;
 
 public class LogRepository : IRepository<Log>
 {
-    private readonly MultilayerTemplateDbContext _dbContext;
+    private readonly TenderHackDbContext _dbContext;
 
-    public LogRepository(MultilayerTemplateDbContext dbContext)
+    public LogRepository(TenderHackDbContext dbContext)
     {
         _dbContext = dbContext;
     }

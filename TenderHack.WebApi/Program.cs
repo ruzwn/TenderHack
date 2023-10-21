@@ -32,7 +32,7 @@ internal static class Program
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
 
-        builder.Services.AddDbContext<MultilayerTemplateDbContext>();
+        builder.Services.AddDbContext<TenderHackDbContext>();
         builder.Services.AddRepositories();
         builder.Services.AddServices();
 

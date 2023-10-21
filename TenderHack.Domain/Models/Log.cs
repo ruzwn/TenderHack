@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Tracing;
-using TenderHack.Domain.Common;
+﻿using TenderHack.Domain.Common;
 
 namespace TenderHack.Domain.Models;
 

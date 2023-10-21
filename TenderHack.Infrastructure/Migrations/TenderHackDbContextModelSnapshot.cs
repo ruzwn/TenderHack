@@ -9,8 +9,8 @@ using TenderHack.Infrastructure.Database;
 
 namespace TenderHack.Infrastructure.Migrations
 {
-    [DbContext(typeof(MultilayerTemplateDbContext))]
-    partial class MultilayerTemplateDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TenderHackDbContext))]
+    partial class TenderHackDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

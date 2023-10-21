@@ -10,7 +10,7 @@ using TenderHack.Infrastructure.Database;
 
 namespace TenderHack.Infrastructure.Migrations
 {
-    [DbContext(typeof(MultilayerTemplateDbContext))]
+    [DbContext(typeof(TenderHackDbContext))]
     [Migration("20231020222032_Initial")]
     partial class Initial
     {
