@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TenderHack.BLL.Requests;
+using TenderHack.BLL.Responses.Clusters;
 using TenderHack.BLL.Services.Interfaces.Queries;
 
 namespace TenderHack.Controllers;
@@ -16,7 +17,7 @@ public class ClusterController : BaseController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{clusterId:long}")]
-    public async Task<IActionResult> Get(
+    public async Task<ActionResult<ClusterGetResponse>> Get(
         long clusterId,
         CancellationToken cancellationToken)
     {
@@ -38,7 +39,7 @@ public class ClusterController : BaseController
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> List(
+    public async Task<ActionResult<List<ClusterListResponse>>> List(
         [FromQuery] ListRequest request,
         CancellationToken cancellationToken)
     {
