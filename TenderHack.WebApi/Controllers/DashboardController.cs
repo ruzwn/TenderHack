@@ -51,4 +51,25 @@ public class DashboardController : BaseController
             return BadRequest(ex.Message);
         }
     }
+
+    /// <summary>
+    /// Получить количество ошибок по датам.
+    /// </summary>
+    [HttpGet]
+    public async Task<ActionResult<List<ErrorCountByDateResponse>>> GetErrorCountByDates(
+        BaseStatisticsRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await GetService<IGetStatisticsOfErrorCountByDatesRequest>()
+                .HandleAsync(request, cancellationToken);
+            
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

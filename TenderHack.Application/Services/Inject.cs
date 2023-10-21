@@ -24,5 +24,7 @@ public static class Inject
         services.AddTransient<IListErrorRequest, ListErrorRequest>();
         services.AddTransient<IGetStatisticsOfSolvedClustersByDatesRequest,
             GetStatisticsOfSolvedClustersByDatesRequest>();
+        services.AddTransient<IGetStatisticsOfErrorCountByDatesRequest,
+            GetStatisticsOfErrorCountByDatesRequest>();
     }
 }
