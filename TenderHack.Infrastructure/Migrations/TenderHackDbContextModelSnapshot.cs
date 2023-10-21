@@ -55,7 +55,7 @@ namespace TenderHack.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cluters");
+                    b.ToTable("Clusters");
                 });
 
             modelBuilder.Entity("TenderHack.Domain.Models.Error", b =>

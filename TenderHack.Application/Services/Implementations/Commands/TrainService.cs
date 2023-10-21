@@ -1,6 +1,5 @@
-﻿using System.Diagnostics.Metrics;
-
-using TenderHack.BLL.Repositories;
+﻿using TenderHack.BLL.Repositories;
+using TenderHack.BLL.Requests;
 using TenderHack.BLL.Services.Interfaces.Commands;
 using TenderHack.Domain.Models;
 
@@ -16,8 +15,10 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 			_errorRepository = errorRepository;
 		}
 
-		public async Task<long> Execute(Error? error, CancellationToken cancellationToken)
+		public async Task<long> Execute(ErrorRequest? errorRequest, CancellationToken cancellationToken)
 		{
+			var error = new Error(errorRequest.Id, errorRequest.Date.ToString(), errorRequest.Log);
+
 			await _errorRepository.AddAsync(error, cancellationToken);
 			var errors = await _errorRepository.GetManyAsync(new Specifications.Specification<Error>(e => e.Cluster == null), cancellationToken);
 			var clusters = await _clusterRepository.GetManyAsync(null, cancellationToken);
