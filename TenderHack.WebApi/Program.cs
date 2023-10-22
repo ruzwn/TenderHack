@@ -59,8 +59,9 @@ internal static class Program
         app.UseHttpsRedirection();
 
         app.MapControllers();
-
+        
         app.MapHub<NotificationHub>("/notificationHub");
+        app.UseWebSockets();
 
         app.Run();
     }
