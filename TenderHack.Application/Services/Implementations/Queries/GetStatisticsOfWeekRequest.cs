@@ -16,9 +16,9 @@ public class GetStatisticsOfWeekRequest : IGetStatisticsOfWeekRequest
         _errorRepository = errorRepository;
     }
 
-    public async Task<StatisticsOfWeekResponse> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
+    public async Task<List<StatisticsOfDayOfWeek>> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
     {
-        if (request.StartDate.AddDays(7) != request.EndDate)
+        if (request.StartDate.AddDays(6) != request.EndDate)
         {
             throw new ArgumentException("Interval between dates is not equal one week");
         }
@@ -27,7 +27,7 @@ public class GetStatisticsOfWeekRequest : IGetStatisticsOfWeekRequest
             .GetManyAsync(new Specification<Error>(x => x.Date > request.StartDate && x.Date < request.EndDate), 
                 cancellationToken);
 
-        var statisticsOfDayOfWeeks = errors
+        return errors
             .GroupBy(x => x.Date.DayOfWeek)
             .Select(x => new StatisticsOfDayOfWeek
             {
@@ -35,10 +35,5 @@ public class GetStatisticsOfWeekRequest : IGetStatisticsOfWeekRequest
                 ErrorCount = x.Count()
             })
             .ToList();
-
-        return new StatisticsOfWeekResponse
-        {
-            StatisticsOfDayOfWeeks = statisticsOfDayOfWeeks
-        };
     }
 }

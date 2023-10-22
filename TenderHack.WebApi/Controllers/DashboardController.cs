@@ -15,7 +15,7 @@ public class DashboardController : BaseController
     /// </summary>
     /// <param name="request">Между датами должна быть неделя</param>
     [HttpGet]
-    public async Task<ActionResult<StatisticsOfWeekResponse>> GetStatisticsByDaysOfWeek(
+    public async Task<ActionResult<List<StatisticsOfDayOfWeek>>> GetStatisticsByDaysOfWeek(
         [FromQuery] BaseStatisticsRequest request, 
         CancellationToken cancellationToken)
     {
@@ -57,7 +57,7 @@ public class DashboardController : BaseController
     /// </summary>
     [HttpGet]
     public async Task<ActionResult<List<ErrorCountByDateResponse>>> GetErrorCountByDates(
-        BaseStatisticsRequest request,
+        [FromQuery] BaseStatisticsRequest request,
         CancellationToken cancellationToken)
     {
         try

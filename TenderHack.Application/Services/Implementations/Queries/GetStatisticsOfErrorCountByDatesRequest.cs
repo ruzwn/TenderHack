@@ -20,18 +20,20 @@ public class GetStatisticsOfErrorCountByDatesRequest
 
     public async Task<List<ErrorCountByDateResponse>> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
     {
-        var errors = await _errorRepository
-            .GetManyAsync(new Specification<Error>(x =>
-                request.StartDate < x.Date && x.Date < request.EndDate), 
-            cancellationToken);
+        var baseQuery = await _errorRepository
+                .GetManyAsQueryableAsync(cancellationToken);
 
-        return errors
-            .GroupBy(x => x.Date)
+        var errors = baseQuery
+            .Where(x => x.Date > request.StartDate && x.Date < request.EndDate)
+            .GroupBy(x => x.Date.Day)
             .Select(x => new ErrorCountByDateResponse
             {
-                Date = DateOnly.FromDateTime(x.Key),
+                Date = DateOnly.FromDateTime(x.FirstOrDefault().Date),
                 Count = x.Count()
             })
+            .OrderBy(x => x.Date)
             .ToList();
+        
+        return errors;
     }
 }

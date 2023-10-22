@@ -3,6 +3,7 @@ using TenderHack.BLL.Responses.Statistics;
 
 namespace TenderHack.BLL.Services.Interfaces.Queries;
 
-public interface IGetStatisticsOfWeekRequest : IService<BaseStatisticsRequest, StatisticsOfWeekResponse>
+public interface IGetStatisticsOfWeekRequest : 
+    IService<BaseStatisticsRequest, List<StatisticsOfDayOfWeek>>
 {
 }
