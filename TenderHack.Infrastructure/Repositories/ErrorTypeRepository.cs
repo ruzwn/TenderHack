@@ -42,6 +42,11 @@ public class ErrorTypeRepository : IRepository<ErrorType>
 		return entities;
 	}
 
+	public Task<IQueryable<ErrorType>> GetManyAsQueryableAsync(CancellationToken cancellationToken)
+	{
+		throw new NotImplementedException();
+	}
+
 	public async Task<ErrorType> GetOneAsync(Specification<ErrorType> filter, CancellationToken cancellationToken)
 	{
 		var entity = await _dbContext.ErrorTypes

@@ -9,4 +9,6 @@ public class ErrorListResponse
     public DateTime Date { get; set; }
     
     public string Log { get; set; }
+    
+    public long? ClusterId { get; set; }
 }

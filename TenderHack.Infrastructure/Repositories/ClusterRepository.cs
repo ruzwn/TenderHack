@@ -46,6 +46,11 @@ namespace TenderHack.Infrastructure.Repositories
 			return await entities.ToListAsync(cancellationToken);
 		}
 
+		public Task<IQueryable<Cluster>> GetManyAsQueryableAsync(CancellationToken cancellationToken)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<Cluster> GetOneAsync(Specification<Cluster> filter, CancellationToken cancellationToken)
 		{
 			var entity = await _dbContext.Clusters
