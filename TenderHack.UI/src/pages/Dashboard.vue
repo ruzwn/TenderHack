@@ -9,6 +9,7 @@ dataInFirstChart.value = {
         labels: [],
         datasets: [
                 {
+                    label: 'Статистика по количеству ошибок в день недели',
                     backgroundColor: '#f87979',
                     data: []
                 }
@@ -19,6 +20,7 @@ dataInSecondChart.value = {
         labels: [],
         datasets: [
                 {
+                    label: 'Получить статистику по решенным кластерам задач по промежутку дат',
                     backgroundColor: '#f87979',
                     data: []
                 }
@@ -30,6 +32,7 @@ dataInThirtChart.value = {
         labels: [],
         datasets: [
                 {
+                    label: 'Получить количество ошибок по датам',
                     backgroundColor: '#f87979',
                     data: []
                 }
@@ -59,6 +62,7 @@ const loadDataFirstChart = async () => {
         labels: params1,
         datasets: [
                 {
+                    label: 'Статистика по количеству ошибок в день недели',
                     backgroundColor: '#f87979',
                     data: params2
                 }
@@ -81,6 +85,7 @@ const loadDataSecondChart = async () => {
         labels: params1,
         datasets: [
                 {
+                    label: 'Получить статистику по решенным кластерам задач по промежутку дат',
                     backgroundColor: '#f87979',
                     data: params2
                 }
@@ -103,6 +108,7 @@ const loadDataThirtChart = async () => {
         labels: params1,
         datasets: [
                 {
+                    label: 'Получить количество ошибок по датам',
                     backgroundColor: '#f87979',
                     data: params2
                 }
@@ -135,7 +141,7 @@ const loadDataThirtChart = async () => {
     <Line :data="dataInSecondChart" />
 </div>
 <div class="card" style="width: 50rem;margin-top: 10px;">
-    <h5 class="card-title"> Получить количество ошибок по датам</h5>
+    <h5 class="card-title">Получить количество ошибок по датам</h5>
     <div>
         <label style="margin-right: 10px;">С</label>
         <input type="date" style="margin-right: 10px;" v-model="firstDateByThirtChart"/>
