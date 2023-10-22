@@ -58,10 +58,26 @@ public class ClusterController : BaseController
         {
             var result= await GetService<IClusterUpdateRequest>().HandleAsync(request, cancellationToken);
 
-            if (result.IsResolved)
+            if (!result.IsResolved)
             {
-                await _hubContext.Clients.All.SendAsync("sendMessage", $"Ошибка '{result.DisplayName}' исправлена", cancellationToken: cancellationToken);
+                return Ok();
             }
+            
+            await _hubContext.Clients.All
+                .SendAsync("sendMessage", $"Ошибка '{result.DisplayName}' исправлена", 
+                    cancellationToken);
+
+            var sendEmailRequest = new SendEmailRequest(
+                Enumerable.Empty<Guid>().ToList(),
+                new EmailMessage
+                {
+                    Subject = "Ошибка исправлена", 
+                    Body = $"{result.DisplayName} исправлена: {result.Description}"
+                }
+            );
+                
+            await GetService<ISendEmailService>()
+                .HandleAsync(sendEmailRequest, cancellationToken);
 
             return Ok();
         }

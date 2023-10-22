@@ -20,6 +20,7 @@ public class ListErrorRequest : IListErrorRequest
         var baseQuery = await _errorRepository.GetManyAsQueryableAsync(cancellationToken);
             
         var result = baseQuery
+            .Where(x => x.ClusterId != null)
             .Skip(request.PageNumber * 25)
             .Take(25)
             .Select(x => new ErrorListResponse
