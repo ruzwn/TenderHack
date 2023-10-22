@@ -2,7 +2,6 @@ using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Responses.Errors;
 using TenderHack.BLL.Services.Interfaces.Queries;
-using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
 
 namespace TenderHack.BLL.Services.Implementations.Queries;
@@ -18,7 +17,9 @@ public class ListErrorRequest : IListErrorRequest
 
     public async Task<List<ErrorListResponse>> HandleAsync(ListRequest request, CancellationToken cancellationToken = default)
     {
-        return (await _errorRepository.GetManyAsync(null, cancellationToken))
+        var baseQuery = await _errorRepository.GetManyAsQueryableAsync(cancellationToken);
+            
+        var result = baseQuery
             .Skip(request.PageNumber * 25)
             .Take(25)
             .Select(x => new ErrorListResponse
@@ -26,8 +27,11 @@ public class ListErrorRequest : IListErrorRequest
                 Id = x.Id, 
                 MetaId = x.MetaId,
                 Date = x.Date,
-                Log = x.Log
+                Log = x.Log,
+                ClusterId = x.ClusterId
             })
             .ToList();
+
+        return result;
     }
 }

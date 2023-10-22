@@ -20,14 +20,15 @@ public class DemoController : BaseController
             .GetOneAsync(new Specification<Error>(x => x.Id == logId), 
                 cancellationToken);
 
-        if (!result.Cluster.Resolved)
+        if (result.Cluster.Resolved)
         {
-            var dto = result.Cluster.ToDto();
-            dto.ErrorLog = result.Log;
-
-            return Ok(dto);
+            return Ok(result.Cluster.ToDto());
         }
+        
+        var dto = result.Cluster.ToDto();
+        dto.ErrorLog = result.Log;
 
-        return Ok(result.Cluster.ToDto());
+        return Ok(dto);
+
     }
 }
