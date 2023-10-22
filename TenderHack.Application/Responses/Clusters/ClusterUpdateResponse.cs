@@ -8,5 +8,7 @@ public class ClusterUpdateResponse
     
     public string Description { get; set; }
     
+    public string Recommendation { get; set; }
+    
     public bool IsResolved { get; set; }
 }

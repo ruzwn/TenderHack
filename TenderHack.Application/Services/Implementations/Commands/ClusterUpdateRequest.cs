@@ -48,6 +48,7 @@ public class ClusterUpdateRequest : IClusterUpdateRequest
             Id = entity.Id, 
             DisplayName = entity.DisplayName, 
             Description = entity.Description, 
+            Recommendation = entity.Recommendation,
             IsResolved = entity.Resolved
         };
     }

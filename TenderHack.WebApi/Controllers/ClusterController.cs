@@ -64,7 +64,7 @@ public class ClusterController : BaseController
             }
             
             await _hubContext.Clients.All
-                .SendAsync("sendMessage", $"Ошибка '{result.DisplayName}' исправлена", 
+                .SendAsync("sendMessage", $"Ошибка '{result.Description}' исправлена", 
                     cancellationToken);
 
             var sendEmailRequest = new SendEmailRequest(
@@ -72,7 +72,7 @@ public class ClusterController : BaseController
                 new EmailMessage
                 {
                     Subject = "Ошибка исправлена", 
-                    Body = $"{result.DisplayName} исправлена: {result.Description}"
+                    Body = $"{result.Description} исправлена: {result.Recommendation}"
                 }
             );
                 
