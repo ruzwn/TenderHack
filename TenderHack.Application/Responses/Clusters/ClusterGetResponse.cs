@@ -37,7 +37,7 @@ public static class ClusterGetResponseMapping
 {
     public static DemoResponse ToDto(this Cluster cluster)
     {
-        return new DemoResponse()
+        return new DemoResponse
         {
             Id = cluster.Id,
             DisplayName = cluster.DisplayName,

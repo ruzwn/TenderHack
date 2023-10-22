@@ -5,7 +5,7 @@ namespace TenderHack.BLL.Services.Implementations.Commands;
 
 public class ParseService : IParseService
 {
-    public async Task<string> HandleAsync(byte[] request, CancellationToken cancellationToken = default)
+    public Task<string> HandleAsync(byte[] request, CancellationToken cancellationToken = default)
     {
         using var memoryStream = new MemoryStream(request);
         using var streamReader = new StreamReader(memoryStream);
@@ -27,6 +27,6 @@ public class ParseService : IParseService
             .Distinct()
             .ToList();
 
-        return string.Join(Environment.NewLine, classes);
+        return Task.FromResult(string.Join(Environment.NewLine, classes));
     }
 }

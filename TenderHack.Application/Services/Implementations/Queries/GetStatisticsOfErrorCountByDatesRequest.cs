@@ -1,9 +1,7 @@
-using System.Security.AccessControl;
 using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Requests.Statistics;
 using TenderHack.BLL.Responses.Statistics;
 using TenderHack.BLL.Services.Interfaces.Queries;
-using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
 
 namespace TenderHack.BLL.Services.Implementations.Queries;
@@ -21,7 +19,7 @@ public class GetStatisticsOfErrorCountByDatesRequest
     public async Task<List<ErrorCountByDateResponse>> HandleAsync(BaseStatisticsRequest request, CancellationToken cancellationToken = default)
     {
         var baseQuery = await _errorRepository
-                .GetManyAsQueryableAsync(cancellationToken);
+                .GetManyAsQueryableAsync();
 
         var errors = baseQuery
             .Where(x => x.Date > request.StartDate && x.Date < request.EndDate)

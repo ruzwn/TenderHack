@@ -2,27 +2,28 @@
 
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Services.Interfaces.Commands;
-using TenderHack.Domain.Models;
 
-namespace TenderHack.Controllers
+namespace TenderHack.Controllers;
+
+/// <summary>
+/// Контроллер для обработки логов.
+/// </summary>
+public class TrainController : BaseController
 {
-	public class TrainController : BaseController
+	/// <summary>
+	/// Обучение нейросети
+	/// </summary>
+	[HttpPost]
+	public async Task<IActionResult> TrainAndGetCluster(ErrorRequest? errorRequest, CancellationToken cancellationToken)
 	{
-		/// <summary>
-		/// Обучение нейросети
-		/// </summary>
-		[HttpPost]
-		public async Task<IActionResult> TrainAndGetCluster(ErrorRequest? errorRequest, CancellationToken cancellationToken)
+		try
 		{
-			try
-			{
-				long clusterId = await GetService<ITrainService>().Execute(errorRequest, cancellationToken);
-				return Ok(clusterId);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
+			var clusterId = await GetService<ITrainService>().Execute(errorRequest, cancellationToken);
+			return Ok(clusterId);
+		}
+		catch (Exception ex)
+		{
+			return BadRequest(ex.Message);
 		}
 	}
 }

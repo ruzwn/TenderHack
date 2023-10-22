@@ -72,9 +72,9 @@ public class ErrorRepository : IRepository<Error>
 		return await entities.ToListAsync(cancellationToken);
 	}
 
-	public async Task<IQueryable<Error>> GetManyAsQueryableAsync(CancellationToken cancellationToken)
+	public Task<IQueryable<Error>> GetManyAsQueryableAsync()
 	{
-		return _dbContext.Errors.AsNoTracking();
+		return Task.FromResult(_dbContext.Errors.AsNoTracking());
 	}
 
 	public Task SaveAsync()

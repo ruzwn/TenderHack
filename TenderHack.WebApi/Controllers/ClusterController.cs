@@ -15,7 +15,7 @@ namespace TenderHack.Controllers;
 public class ClusterController : BaseController
 {
     private readonly IHubContext<NotificationHub> _hubContext;
-
+    
     public ClusterController(IHubContext<NotificationHub> hubContext)
     {
         _hubContext = hubContext;

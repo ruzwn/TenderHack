@@ -1,6 +1,5 @@
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Responses.Clusters;
-using TenderHack.BLL.Services.Implementations.Queries;
 
 namespace TenderHack.BLL.Services.Interfaces.Queries;
 

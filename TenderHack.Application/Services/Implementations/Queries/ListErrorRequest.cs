@@ -17,7 +17,7 @@ public class ListErrorRequest : IListErrorRequest
 
     public async Task<List<ErrorListResponse>> HandleAsync(ListRequest request, CancellationToken cancellationToken = default)
     {
-        var baseQuery = await _errorRepository.GetManyAsQueryableAsync(cancellationToken);
+        var baseQuery = await _errorRepository.GetManyAsQueryableAsync();
             
         var result = baseQuery
             .Where(x => x.ClusterId != null)

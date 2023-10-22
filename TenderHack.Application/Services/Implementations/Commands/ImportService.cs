@@ -48,7 +48,7 @@ public class ImportService : IImportService
             .ToList();
     }
 
-    private List<Error> ProcessData(List<RawRowModel> data)
+    private IEnumerable<Error> ProcessData(IEnumerable<RawRowModel> data)
     {
         return data
             .Select(x =>

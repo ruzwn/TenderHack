@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
-using System.Linq;
-
 using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
@@ -27,7 +24,7 @@ public class ErrorTypeRepository : IRepository<ErrorType>
 		await _dbContext.ErrorTypes.AddRangeAsync(entities, cancellationToken);
 	}
 
-	public async Task DeleteAsync(ErrorType entity, CancellationToken cancellationToken)
+	public Task DeleteAsync(ErrorType entity, CancellationToken cancellationToken)
 	{
 		throw new NotImplementedException();
 	}
@@ -42,7 +39,7 @@ public class ErrorTypeRepository : IRepository<ErrorType>
 		return entities;
 	}
 
-	public Task<IQueryable<ErrorType>> GetManyAsQueryableAsync(CancellationToken cancellationToken)
+	public Task<IQueryable<ErrorType>> GetManyAsQueryableAsync()
 	{
 		throw new NotImplementedException();
 	}
@@ -51,7 +48,7 @@ public class ErrorTypeRepository : IRepository<ErrorType>
 	{
 		var entity = await _dbContext.ErrorTypes
 			.FirstOrDefaultAsync(filter, cancellationToken)
-			?? throw new ArgumentNullException("Entity was not found");
+			?? throw new ArgumentNullException($"{nameof(ErrorType)}");
 
 		return entity;
 	}
@@ -61,11 +58,13 @@ public class ErrorTypeRepository : IRepository<ErrorType>
 		return _dbContext.SaveChangesAsync();
 	}
 
-	public async Task UpdateAsync(ErrorType entity, CancellationToken cancellationToken)
+	public Task UpdateAsync(ErrorType entity, CancellationToken cancellationToken)
 	{
 		if (_dbContext.Entry(entity).State == EntityState.Detached)
 		{
 			_dbContext.Update(entity);
 		}
+
+		return Task.CompletedTask;
 	}
 }

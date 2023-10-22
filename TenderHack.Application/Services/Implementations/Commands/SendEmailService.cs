@@ -19,13 +19,13 @@ public class SendEmailService : ISendEmailService
 
     public Task<EmptyResponse> HandleAsync(SendEmailRequest request, CancellationToken cancellationToken = default)
     {
-        MailMessage message = new MailMessage();
+        var message = new MailMessage();
         message.From = new MailAddress(EmailSender);
         message.To.Add(new MailAddress(EmailReceiver));
         message.Subject = request.Message.Subject;
         message.Body = request.Message.Body;
 
-        SmtpClient client = new SmtpClient();
+        var client = new SmtpClient();
         client.Host = EmailHost;
         client.Port = EmailHostPort;
         client.EnableSsl = true;
