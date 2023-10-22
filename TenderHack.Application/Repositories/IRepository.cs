@@ -10,14 +10,12 @@ public interface IRepository<TEntity>
     Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
     
     Task UpdateAsync(TEntity entity, CancellationToken cancellationToken);
-    
-    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken);
-    
+
     Task<TEntity> GetOneAsync(Specification<TEntity> filter, CancellationToken cancellationToken);
     
     Task<List<TEntity>> GetManyAsync(Specification<TEntity> filter, CancellationToken cancellationToken);
 
-    Task<IQueryable<TEntity>> GetManyAsQueryableAsync(CancellationToken cancellationToken);
+    Task<IQueryable<TEntity>> GetManyAsQueryableAsync();
     
 	Task SaveAsync();
 }

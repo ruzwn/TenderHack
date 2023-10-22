@@ -9,14 +9,11 @@ namespace TenderHack.BLL.Services.Implementations.Queries;
 
 public class StatisticsByDateService : IStatisticByDateService
 {
-    private readonly IRepository<Error> _errorRepository;
     private readonly IRepository<Cluster> _clusterRepository;
 
     public StatisticsByDateService(
-        IRepository<Error> errorRepository, 
         IRepository<Cluster> clusterRepository)
     {
-        _errorRepository = errorRepository;
         _clusterRepository = clusterRepository;
     }
 

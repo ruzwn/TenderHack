@@ -10,6 +10,9 @@ namespace TenderHack.Controllers;
 /// </summary>
 public class AdminController : BaseController
 {
+    /// <summary>
+    /// Получить записи.
+    /// </summary>
     [HttpGet]
     public async Task<List<ErrorListResponse>> List(
         [FromQuery]ListRequest request,

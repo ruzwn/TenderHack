@@ -6,6 +6,9 @@ using TenderHack.Domain.Models;
 
 namespace TenderHack.Controllers;
 
+/// <summary>
+/// Контроллер для демки.
+/// </summary>
 public class DemoController : BaseController
 {
     /// <summary>
