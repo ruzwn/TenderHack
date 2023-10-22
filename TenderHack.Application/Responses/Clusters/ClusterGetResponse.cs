@@ -28,11 +28,16 @@ public class ClusterGetResponse
     public DateTime ResolvedDate { get; set; }
 }
 
+public class DemoResponse : ClusterGetResponse
+{
+    public string ErrorLog { get; set; }
+}
+
 public static class ClusterGetResponseMapping
 {
-    public static ClusterGetResponse ToDto(this Cluster cluster)
+    public static DemoResponse ToDto(this Cluster cluster)
     {
-        return new ClusterGetResponse
+        return new DemoResponse()
         {
             Id = cluster.Id,
             DisplayName = cluster.DisplayName,

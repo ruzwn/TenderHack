@@ -12,13 +12,21 @@ public class DemoController : BaseController
     /// Получить ошибку для тестов.
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<ClusterGetResponse>> GetRawError(
+    public async Task<ActionResult<DemoResponse>> GetRawError(
         [FromQuery] Guid logId,
         CancellationToken cancellationToken)
     {
         var result = await GetService<IRepository<Error>>()
             .GetOneAsync(new Specification<Error>(x => x.Id == logId), 
                 cancellationToken);
+
+        if (!result.Cluster.Resolved)
+        {
+            var dto = result.Cluster.ToDto();
+            dto.ErrorLog = result.Log;
+
+            return Ok(dto);
+        }
 
         return Ok(result.Cluster.ToDto());
     }
