@@ -1,11 +1,11 @@
 import { HttpTransportType, HubConnectionBuilder } from "@microsoft/signalr";
-import { BASE_URL } from "@/services/api"
 import {app} from '@/main'
 
 export class Signalr {
     private constructor() {
+        const BASE_URL = 'https://localhost:80/'
         const connection = this.createConnection();
-        const notificationHub = connection.createHubProxy("notificationHub", BASE_URL);
+        const notificationHub = connection.createHubProxy("notificationHub/", BASE_URL);
 
         notificationHub.on("sendMessage", (message) => {
             Signalr.hubs.notificationHub.sendMessage.forEach((handler) => {
