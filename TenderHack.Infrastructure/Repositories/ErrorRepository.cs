@@ -50,6 +50,7 @@ public class ErrorRepository : IRepository<Error>
 	public async Task<Error> GetOneAsync(Specification<Error> filter, CancellationToken cancellationToken)
 	{
 		var entity = await _dbContext.Errors
+			.Include(x => x.Cluster)
 			.FirstOrDefaultAsync(filter, cancellationToken)
 			?? throw new ArgumentNullException("Entity was not found");
 
