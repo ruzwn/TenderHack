@@ -2,11 +2,12 @@
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 import {BASE_URL} from '@/services/api'
+import { useToast } from 'primevue/usetoast'
 
 export interface Log{
     id: String,
     metaId: String,
-    message: String,
+    log: String,
     date: Date,
 }
 
@@ -20,6 +21,7 @@ const props = defineProps({
     },
 });
 
+const toast = useToast();
 const logData = ref<Log[]>();
 const page = ref<number>(0);
 const maxPages = ref<number>(0);
@@ -27,10 +29,10 @@ const dataHeader = ref<String[]>();
 
 const loadData = async () => {
     const {data} = await axios.get(BASE_URL + props.api,{
-        params: {page: page.value}   
+        params: {pageNumber: page.value}   
     });
 
-    logData.value = data.data as Log[];
+    logData.value = data as Log[];
     maxPages.value = data.totalCount / 25;
     dataHeader.value = logData.value?.length >= 1 ? Object.keys(logData.value[0]) : [];
 }
@@ -41,6 +43,7 @@ onMounted(async () => {
 
 watch(page, async () => {
     loadData();
+    toast.add({ severity: 'info', summary: 'Оповещение', detail: 'тест', life: 3000 });
 })
 
 </script>
@@ -57,7 +60,7 @@ watch(page, async () => {
             <tr v-for="(item, index) in logData" :key="index">
                 <td>{{ item.id }}</td>
                 <td>{{ item.metaId }}</td>
-                <td>{{ item.message }}</td>
+                <td>{{ item.log }}</td>
                 <td>{{ item.date }}</td>
             </tr>
         </tbody>
