@@ -63,7 +63,9 @@ public class GetClusterRequest : IGetClusterRequest
             ErrorCount = entity.Errors.Count,
             ErrorByHourStatistics = currentDayErrors,
             PreviousErrorsByHourStatistics = previousDayErrors,
-            LastErrors = lastErrors
+            LastErrors = lastErrors, 
+            ErrorTypeName = entity.Errors.FirstOrDefault()?.ErrorType?.DisplayName
+                ?? string.Empty
         };
     }
 }

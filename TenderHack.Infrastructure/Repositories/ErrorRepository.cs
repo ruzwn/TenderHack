@@ -58,14 +58,17 @@ public class ErrorRepository : IRepository<Error>
 
 	public async Task<List<Error>> GetManyAsync(Specification<Error> filter, CancellationToken cancellationToken)
 	{
-		var entities = await _dbContext.Errors
+		var entities = _dbContext.Errors
 			.Include(e => e.Cluster)
 			.Include(e => e.Users)
 			.Include(e => e.ErrorType)
-			.Where(filter)
-			.ToListAsync(cancellationToken);
+			.AsQueryable();
+		if (filter is not null)
+		{
+			entities = entities.Where(filter);
+		}
 
-		return entities;
+		return await entities.ToListAsync(cancellationToken);
 	}
 
 	public Task SaveAsync()

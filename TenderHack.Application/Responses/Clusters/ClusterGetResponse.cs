@@ -17,6 +17,8 @@ public class ClusterGetResponse
     
     public List<ErrorAbbreviatedDto> LastErrors { get; set; }
     
+    public string ErrorTypeName { get; set; }
+    
     public string Description { get; set; }
     
     public string Recommendation { get; set; }
@@ -36,6 +38,8 @@ public static class ClusterGetResponseMapping
             DisplayName = cluster.DisplayName,
             ErrorCount = cluster.Errors.Count, 
             
+            ErrorTypeName = cluster.Errors.FirstOrDefault()?
+                .ErrorType?.DisplayName,
             Description = cluster.Description, 
             Recommendation = cluster.Recommendation, 
             Resolved = cluster.Resolved, 
