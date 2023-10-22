@@ -30,6 +30,11 @@
                           <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Clusters</span>
                         </router-link>
                     </li>
+                    <li>
+                        <router-link to="/Demo" class="nav-link px-0 align-middle">
+                          <i class="fs-4 bi bi-suit-heart-fill"></i> <span class="ms-1 d-none d-sm-inline">Demo</span>
+                        </router-link>
+                    </li>
                 </ul>
                 <hr>
             </div>

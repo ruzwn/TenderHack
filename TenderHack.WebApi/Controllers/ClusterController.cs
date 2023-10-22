@@ -60,7 +60,7 @@ public class ClusterController : BaseController
 
             if (result.IsResolved)
             {
-                await _hubContext.Clients.All.SendAsync($"Ошибка '{result.DisplayName}' исправлена", cancellationToken: cancellationToken);
+                await _hubContext.Clients.All.SendAsync("sendMessage", $"Ошибка '{result.DisplayName}' исправлена", cancellationToken: cancellationToken);
             }
 
             return Ok();

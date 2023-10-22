@@ -24,6 +24,11 @@ const router = createRouter({
       path: "/Clusters",
       name: RouteNamesEnum.cluster,
       component: () => import("@/pages/Clusters.vue")
+    },
+    {
+      path: "/Demo",
+      name: RouteNamesEnum.demo,
+      component: () => import("@/pages/Demo.vue")
     }
   ],
 });

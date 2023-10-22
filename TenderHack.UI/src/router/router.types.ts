@@ -13,4 +13,5 @@ export enum RouteNamesEnum {
   logs = "logs",
   dashboard = "dashboard",
   cluster = "cluster",
+  demo = "demo",
 }
