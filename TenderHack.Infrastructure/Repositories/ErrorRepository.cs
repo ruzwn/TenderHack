@@ -61,6 +61,7 @@ public class ErrorRepository : IRepository<Error>
 		var entities = await _dbContext.Errors
 			.Include(e => e.Cluster)
 			.Include(e => e.Users)
+			.Include(e => e.ErrorType)
 			.Where(filter)
 			.ToListAsync(cancellationToken);
 
