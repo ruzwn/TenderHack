@@ -2,7 +2,6 @@
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 import {BASE_URL} from '@/services/api'
-import { useToast } from 'primevue/usetoast'
 
 export interface Log{
     id: String,

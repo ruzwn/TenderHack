@@ -20,7 +20,7 @@ const errorFirst = ref<ClasterCardData>();
 
 const getOneError = async (id: string) => {
     const {data} = await axios.get(BASE_URL + "Demo/GetRawError", {
-        params: {id: id} 
+        params: {logId: id} 
     });
 
     errorFirst.value = data as ClasterCardData;
@@ -38,7 +38,7 @@ const getOneError = async (id: string) => {
 <template>
   <div class="page">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="() => getOneError('00003308-03ad-41ba-98c7-c4f1629d1f69')">Первый вариант</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="() => getOneError('00c0be2e-cbd6-42c7-bd41-d67516d954b5')">Второй вариант</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="() => getOneError('005cd344-f9bf-4843-bccc-1d225a214eb0')">Второй вариант</button>
   </div>
 </template>
 
