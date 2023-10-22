@@ -17,8 +17,13 @@ public class Error : BaseEntity<Guid>
 
 	public long? ClusterIfCentroidId { get; set; }
 	public Cluster? ClusterIfCentroid { get; set; }
+
+	public Guid? ErrorTypeId { get; set; }
+	public ErrorType? ErrorType { get; set; }
+
 	public long? ClusterId { get; set; }
 	public Cluster? Cluster { get; set; }
+
 	public List<User> Users { get; set; } = new List<User>();
 
 	// For EF Core.

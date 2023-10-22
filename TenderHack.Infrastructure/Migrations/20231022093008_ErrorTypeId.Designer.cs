@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TenderHack.Infrastructure.Database;
@@ -11,9 +12,11 @@ using TenderHack.Infrastructure.Database;
 namespace TenderHack.Infrastructure.Migrations
 {
     [DbContext(typeof(TenderHackDbContext))]
-    partial class TenderHackDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022093008_ErrorTypeId")]
+    partial class ErrorTypeId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
