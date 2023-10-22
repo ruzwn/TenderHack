@@ -18,7 +18,7 @@ public class ListErrorRequest : IListErrorRequest
 
     public async Task<List<ErrorListResponse>> HandleAsync(ListRequest request, CancellationToken cancellationToken = default)
     {
-        return (await _errorRepository.GetManyAsync(new Specification<Error>(x => x.Log.Length > 0), cancellationToken))
+        return (await _errorRepository.GetManyAsync(null, cancellationToken))
             .Skip(request.PageNumber * 25)
             .Take(25)
             .Select(x => new ErrorListResponse
