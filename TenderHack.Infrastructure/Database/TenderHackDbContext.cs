@@ -11,6 +11,7 @@ public sealed class TenderHackDbContext : DbContext
     public DbSet<ErrorType> ErrorTypes { get; set; }
     public DbSet<Error> Errors { get; set; }
     public DbSet<Cluster> Clusters { get; set; }
+    
     public DbSet<User> Users { get; set; }
 
     public TenderHackDbContext(IConfiguration configuration)
@@ -22,7 +23,8 @@ public sealed class TenderHackDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"));
+        // optionsBuilder.UseSqlite(_configuration.GetConnectionString("SqliteConnection"));
+        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("TenderHackDatabase"));
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
