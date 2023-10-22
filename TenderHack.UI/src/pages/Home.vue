@@ -3,7 +3,7 @@
 
 <template>
   <div class="page">
-    Home
+    <h1>Домашняя страница оператора</h1>
   </div>
 </template>
 
