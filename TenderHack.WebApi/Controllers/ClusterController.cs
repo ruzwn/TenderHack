@@ -4,6 +4,7 @@ using TenderHack.BLL.Requests.Clusters;
 using TenderHack.BLL.Responses.Clusters;
 using TenderHack.BLL.Services.Interfaces.Commands;
 using TenderHack.BLL.Services.Interfaces.Queries;
+using TenderHack.Hub;
 
 namespace TenderHack.Controllers;
 
@@ -47,7 +48,13 @@ public class ClusterController : BaseController
     {
         try
         {
-            await GetService<IClusterUpdateRequest>().HandleAsync(request, cancellationToken);
+            var result= await GetService<IClusterUpdateRequest>().HandleAsync(request, cancellationToken);
+
+            if (result.IsResolved)
+            {
+                await GetService<NotificationHub>()
+                    .SendMessage($"Ошибка '{result.DisplayName}' исправлена");
+            }
 
             return Ok();
         }
