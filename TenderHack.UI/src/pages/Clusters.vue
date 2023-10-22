@@ -20,6 +20,9 @@ interface ClasterCardData{
     errorCount: number,
     lastErrors: LastErrors,
     previousErrorsByHourStatistics: number[],
+    resolved: boolean,
+    recommendation: string,
+    description: string
 }
 
 const api = 'Cluster/List'
@@ -30,11 +33,16 @@ const currentId = ref<Number>();
 const description = ref<String>();
 const answer = ref<String>();
 const resolved = ref<Boolean>();
+const page = ref<number>(0);
+const maxPages = ref<number>(0);
 
 const loadData = async () => {
-    const {data} = await axios.get(BASE_URL + api);
+    const {data} = await axios.get(BASE_URL + api, {
+        params: {pageNumber: page.value} 
+    });
 
     cardData.value = data as CardList[];
+    maxPages.value = data.totalCount / 25;
 }
 
 const saveClaster = async () => {
@@ -58,8 +66,14 @@ watch(currentId, async (value) => {
         const {data} = await axios.get(BASE_URL + "Cluster/Get/" + value);
 
         clasterCardData.value = data as ClasterCardData;
-
+        resolved.value = clasterCardData.value.resolved;
+        description.value = clasterCardData.value.description;
+        answer.value = clasterCardData.value.recommendation;
     }
+})
+
+watch(page, async () => {
+    loadData();
 })
 </script>
 
@@ -74,6 +88,15 @@ watch(currentId, async (value) => {
         </div>
     </div>
 </div>
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+    <button class="btn btn-light" :disabled="page === 0" @click="page -= 1">Previous</button>
+    </li>
+    <input type="number" min="0" v-model="page"/>
+    <li class="page-item" :disabled="page === maxPages">
+        <button class="btn btn-light" :disabled="page === maxPages" @click="page += 1">Next</button>
+    </li>
+</ul>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">

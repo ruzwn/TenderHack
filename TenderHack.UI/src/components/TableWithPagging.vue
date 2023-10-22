@@ -21,7 +21,6 @@ const props = defineProps({
     },
 });
 
-const toast = useToast();
 const logData = ref<Log[]>();
 const page = ref<number>(0);
 const maxPages = ref<number>(0);
@@ -43,7 +42,6 @@ onMounted(async () => {
 
 watch(page, async () => {
     loadData();
-    toast.add({ severity: 'info', summary: 'Оповещение', detail: 'тест', life: 3000 });
 })
 
 </script>
