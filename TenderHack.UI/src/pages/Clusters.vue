@@ -113,16 +113,6 @@ watch(page, async () => {
             </div>
         </div>
         <div class="card" style="margin-top: 20px">
-            <table class="table table-hover">
-                <tbody>
-                    <tr v-for="(item, index) in clasterCardData?.lastErrors" :key="index">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.message }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="card" style="margin-top: 20px">
             <div class="card-body">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Описание</label>
@@ -139,6 +129,16 @@ watch(page, async () => {
                     Ошибка устранена
                 </label>
             </div>
+        </div>
+        <div class="card" style="margin-top: 20px">
+            <table class="table table-hover">
+                <tbody>
+                    <tr v-for="(item, index) in clasterCardData?.lastErrors" :key="index">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.message }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
       </div>
       <div class="modal-footer">
