@@ -1,10 +1,9 @@
 import { HttpTransportType, HubConnectionBuilder } from "@microsoft/signalr";
 import { BASE_URL } from "@/services/api"
-import { useToast } from 'primevue/usetoast';
+import {app} from '@/main'
 
 export class Signalr {
     private constructor() {
-        const toast = useToast();
         const connection = this.createConnection();
         const notificationHub = connection.createHubProxy("notificationHub", BASE_URL);
 
@@ -17,8 +16,8 @@ export class Signalr {
         connection.start();
 
         // Обработчики по умолчанию
-        Signalr.hubs.notificationHub.sendMessage.push((message) => {
-            
+        Signalr.hubs.notificationHub.sendMessage.push((message: string) => {
+            app.config.globalProperties.$toast.add({ severity: 'info', summary: 'Оповещение', detail: message, life: 3000 });
         });
     }
 
