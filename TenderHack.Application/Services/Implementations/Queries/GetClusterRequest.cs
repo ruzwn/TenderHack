@@ -65,7 +65,12 @@ public class GetClusterRequest : IGetClusterRequest
             PreviousErrorsByHourStatistics = previousDayErrors,
             LastErrors = lastErrors, 
             ErrorTypeName = entity.Errors.FirstOrDefault()?.ErrorType?.DisplayName
-                ?? string.Empty
+                ?? string.Empty, 
+            
+            Description = entity.Description, 
+            Recommendation = entity.Recommendation, 
+            Resolved = entity.Resolved,
+            ResolvedDate = entity.ResolvedDate
         };
     }
 }
