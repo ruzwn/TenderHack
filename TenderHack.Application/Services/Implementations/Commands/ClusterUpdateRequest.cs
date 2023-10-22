@@ -1,5 +1,5 @@
 using TenderHack.BLL.Repositories;
-using TenderHack.BLL.Responses;
+using TenderHack.BLL.Responses.Clusters;
 using TenderHack.BLL.Services.Interfaces.Commands;
 using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
@@ -9,13 +9,14 @@ namespace TenderHack.BLL.Services.Implementations.Commands;
 public class ClusterUpdateRequest : IClusterUpdateRequest
 {
     private readonly IRepository<Cluster> _clusterRepository;
-
-    public ClusterUpdateRequest(IRepository<Cluster> clusterRepository)
+        
+    public ClusterUpdateRequest(
+        IRepository<Cluster> clusterRepository)
     {
         _clusterRepository = clusterRepository;
     }
 
-    public async Task<EmptyResponse> HandleAsync(
+    public async Task<ClusterUpdateResponse> HandleAsync(
         Requests.Clusters.ClusterUpdateRequest request,
         CancellationToken cancellationToken)
     {
@@ -42,6 +43,12 @@ public class ClusterUpdateRequest : IClusterUpdateRequest
 
         await _clusterRepository.UpdateAsync(entity, cancellationToken);
 
-        return new EmptyResponse();
+        return new ClusterUpdateResponse
+        {
+            Id = entity.Id, 
+            DisplayName = entity.DisplayName, 
+            Description = entity.Description, 
+            IsResolved = entity.Resolved
+        };
     }
 }

@@ -3,6 +3,7 @@
 using TenderHack.BLL.Repositories;
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Services.Interfaces.Commands;
+using TenderHack.BLL.Specifications;
 using TenderHack.Domain.Models;
 
 namespace TenderHack.BLL.Services.Implementations.Commands
@@ -11,10 +12,15 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 	{
 		private readonly IRepository<Cluster> _clusterRepository;
 		private readonly IRepository<Error> _errorRepository;
-		public TrainService(IRepository<Cluster> clusterRepository, IRepository<Error> errorRepository)
+		private readonly IRepository<ErrorType> _errorTypeRepository;
+		public TrainService(IRepository<Cluster> clusterRepository
+			, IRepository<Error> errorRepository
+			, IRepository<ErrorType> errorTypeRepository
+			)
 		{
 			_clusterRepository = clusterRepository;
 			_errorRepository = errorRepository;
+			_errorTypeRepository = errorTypeRepository;
 		}
 
 		public async Task<long> Execute(ErrorRequest? errorRequest, CancellationToken cancellationToken)
@@ -22,13 +28,35 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 			var error = new Error(errorRequest.Id, errorRequest.Date.ToString(), errorRequest.Log);
 
 			await _errorRepository.AddAsync(error, cancellationToken);
-			var errors = await _errorRepository.GetManyAsync(new Specifications.Specification<Error>(e => e.Cluster == null), cancellationToken);
+			var errors = await _errorRepository.GetManyAsync(new Specification<Error>(e => e.Cluster == null), cancellationToken);
 			var clusters = await _clusterRepository.GetManyAsync(null, cancellationToken);
+			var errorTypes = await _errorTypeRepository.GetManyAsync(new Specification<ErrorType>(et => true), cancellationToken);
+
+			//var defaultErrorType = errorTypes.FirstOrDefault(et => et.Id.Equals(Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")));
+			foreach (var e in errors)
+			{
+				if (e.ErrorType is null)
+				{
+					var etype = errorTypes.FirstOrDefault(et => et.Log.StartsWith(e.Log));
+					//if (etype is null)
+					//{
+					//	e.ErrorType = defaultErrorType;
+					//	e.ErrorTypeId = defaultErrorType.Id;
+					//}
+					//else
+					//{
+					e.ErrorType = etype;
+					//e.ErrorTypeId = etype.Id;
+					//}
+				}
+			}
+			var counutr = errors.Count(e => e.ErrorType is null);
+			await _errorTypeRepository.SaveAsync();
 
 			clusters.Add(new Cluster());
 			int count = 0;
 
-			foreach (var e in errors.Take(5))
+			foreach (var e in errors)
 			{
 				count++;
 				await KMeans(e, clusters);
@@ -40,11 +68,21 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 
 		private async Task KMeans(Error error, List<Cluster> clusters)
 		{
-			var closestCluster = clusters.AsParallel().MinBy(c => CalculateDistance(c.Centroid, error));
+			var closestCluster = clusters.AsParallel()
+				.Where(c =>
+					c.Centroid is null || c.Centroid.ErrorTypeId == error.ErrorTypeId
+					)
+				.MinBy(c =>
+					CalculateDistance(c.Centroid, error)
+					);
+
 			closestCluster.Errors.Add(error);
 			error.Cluster = closestCluster;
 
-			var newCentroid = closestCluster.Errors.AsParallel().MinBy(e => CalculateSumDistance(e, closestCluster));
+			var newCentroid = closestCluster.Errors
+				.AsParallel()
+				.Where(c => c.ErrorTypeId == error.ErrorTypeId)
+				.MinBy(e => CalculateSumDistance(e, closestCluster));
 
 			if (closestCluster.Centroid == null)
 			{
@@ -63,15 +101,15 @@ namespace TenderHack.BLL.Services.Implementations.Commands
 
 		private double CalculateDistance(Error error1, Error error2)
 		{
+			SetPreprocessedLog(error2);
 			if (error1 == null)
 			{
 				return Math.Sqrt(error2.ProcessedLog.Length);
 			}
 			SetPreprocessedLog(error1);
-			SetPreprocessedLog(error2);
 			var log1 = error1.ProcessedLog;
 			var log2 = error2.ProcessedLog;
-			
+
 			int[,] distance = new int[log1.Length + 1, log2.Length + 1];
 
 			for (int i = 0; i <= log1.Length; i++)

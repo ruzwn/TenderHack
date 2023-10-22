@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using TenderHack.BLL.Services;
+using TenderHack.Hub;
 using TenderHack.Infrastructure.Database;
 using TenderHack.Infrastructure.Repositories;
 
@@ -33,6 +34,7 @@ internal static class Program
             });
 
         builder.Services.AddDbContext<TenderHackDbContext>();
+        builder.Services.AddSignalR();
         builder.Services.AddRepositories();
         builder.Services.AddServices();
 
@@ -42,8 +44,7 @@ internal static class Program
             .AllowAnyHeader()
             .AllowAnyMethod()
         );
-
-            
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -58,6 +59,8 @@ internal static class Program
         app.UseHttpsRedirection();
 
         app.MapControllers();
+
+        app.MapHub<NotificationHub>("/notificationHub");
 
         app.Run();
     }

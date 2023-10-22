@@ -4,6 +4,6 @@ using TenderHack.BLL.Responses.Clusters;
 
 namespace TenderHack.BLL.Services.Interfaces.Commands;
 
-public interface IClusterUpdateRequest : IService<ClusterUpdateRequest, EmptyResponse>
+public interface IClusterUpdateRequest : IService<ClusterUpdateRequest, ClusterUpdateResponse>
 {
 }

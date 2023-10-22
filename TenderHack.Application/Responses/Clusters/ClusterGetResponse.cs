@@ -16,6 +16,14 @@ public class ClusterGetResponse
     public List<ErrorsByHourDto> PreviousErrorsByHourStatistics { get; set; }
     
     public List<ErrorAbbreviatedDto> LastErrors { get; set; }
+    
+    public string Description { get; set; }
+    
+    public string Recommendation { get; set; }
+    
+    public bool Resolved { get; set; }
+    
+    public DateTime ResolvedDate { get; set; }
 }
 
 public static class ClusterGetResponseMapping
@@ -26,10 +34,12 @@ public static class ClusterGetResponseMapping
         {
             Id = cluster.Id,
             DisplayName = cluster.DisplayName,
-            ErrorCount = cluster.Errors.Count,
-            ErrorByHourStatistics = new(),
-            PreviousErrorsByHourStatistics = new(),
-            LastErrors = new()
+            ErrorCount = cluster.Errors.Count, 
+            
+            Description = cluster.Description, 
+            Recommendation = cluster.Recommendation, 
+            Resolved = cluster.Resolved, 
+            ResolvedDate = cluster.ResolvedDate
         };
     }
 }
