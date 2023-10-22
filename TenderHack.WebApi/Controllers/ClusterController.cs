@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using TenderHack.BLL.Requests;
 using TenderHack.BLL.Requests.Clusters;
 using TenderHack.BLL.Responses.Clusters;
@@ -13,6 +14,13 @@ namespace TenderHack.Controllers;
 /// </summary>
 public class ClusterController : BaseController
 {
+    private readonly IHubContext<NotificationHub> _hubContext;
+
+    public ClusterController(IHubContext<NotificationHub> hubContext)
+    {
+        _hubContext = hubContext;
+    }
+
     /// <summary>
     /// Получить информацию по кластеру.
     /// </summary>
@@ -52,8 +60,7 @@ public class ClusterController : BaseController
 
             if (result.IsResolved)
             {
-                await GetService<NotificationHub>()
-                    .SendMessage($"Ошибка '{result.DisplayName}' исправлена");
+                await _hubContext.Clients.All.SendAsync($"Ошибка '{result.DisplayName}' исправлена", cancellationToken: cancellationToken);
             }
 
             return Ok();
